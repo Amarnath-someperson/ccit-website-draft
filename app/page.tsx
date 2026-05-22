@@ -2,64 +2,75 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="">
+      <main className="">
+        {/*<NavBar/>*/}
+
+        <MainUIWindow />
+
+        {/* blog posts can be in writer?*/}
       </main>
+    </div>
+  );
+}
+
+export function HeroEyeCatcherText() {
+  return (
+    <div className="scrolling-words-container">
+      <span>Stimulating minds through </span>
+      <div className="scrolling-words-box">
+        <ul>
+          <li></li>
+          <li>hackathons</li>
+          <li>peer discussions</li>
+          <li>workshops</li>
+          <li>talks</li>
+          <li>club projects</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export function Window({ position, size, title, html }) {
+  return (
+    <div
+      className="fixed bg-gray-900 border-2 border-solid"
+      style={{
+        // non-static, as to why tailwind would not work (thx gemini)
+        top: `${position.y}px`,
+        left: `${position.x}px`,
+        width: `${size.width}px`,
+        height: `${size.height}px`,
+      }}
+    >
+      <div className="border-solid border-b border-bottom-gray-800">
+        <div
+          name="title-bar"
+          className="flex flex-row justify-evenly bg-gray-800 pl-1 pr-1 m-1 border-solid border-3 border-gray-800
+        bg-[repeating-linear-gradient(to_bottom,_#ccc_0px,_#ccc_2px,_transparent_1px,_transparent_5px)]"
+        >
+          <div className="bg-gray-800 pl-1 pr-1">{title}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function MainUIWindow() {
+  const windowPosition = { x: 100, y: 50 };
+  const windowSize = { width: 400, height: 300 };
+  const content = "<h1>Hello World</h1>";
+  const title = "generic title";
+
+  return (
+    <div>
+      <Window
+        position={windowPosition}
+        size={windowSize}
+        title={title}
+        html={content}
+      />
     </div>
   );
 }
