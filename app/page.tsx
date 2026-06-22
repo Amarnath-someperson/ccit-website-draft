@@ -41,6 +41,7 @@ export function HeroEyeCatcherText() {
 
 export function Window({ position, size, title, html }) {
   const [currPosition, setCurrPosition] = useState(position);
+  const [currMaxZIndex, setCurrMaxZIndex] = useState(0);
   const dragRef = useRef(null);
 
   const dragCurr = useRef({ x: 0, y: 0 });
@@ -48,6 +49,9 @@ export function Window({ position, size, title, html }) {
   const handlePointerDown = (e) => {
     e.target.setPointerCapture(e.pointerId);
     e.preventDefault();
+    setCurrMaxZIndex(currMaxZIndex + 1);
+
+    console.log("what");
     dragCurr.current = {
       x: e.clientX - currPosition.x,
       y: e.clientY - currPosition.y,
@@ -56,7 +60,7 @@ export function Window({ position, size, title, html }) {
 
   const handlePointerMove = (e) => {
     if (!e.target.hasPointerCapture(e.pointerId)) return;
-
+    if (e.clientY - dragCurr.current.y < 0) return;
     setCurrPosition({
       x: e.clientX - dragCurr.current.x,
       y: e.clientY - dragCurr.current.y,
@@ -76,6 +80,7 @@ export function Window({ position, size, title, html }) {
         left: `${currPosition.x}px`,
         width: `${size.width}px`,
         height: `${size.height}px`,
+        zIndex: `${currMaxZIndex}`,
       }}
     >
       <div className="border-solid border-b border-bottom-gray-800">
